@@ -1,8 +1,25 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model question3_AgeCalculator.Models.AgeViewModel
+@{
+    ViewData["Title"] = "Age Calculator";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Age Calculator</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="DateOfBirth" class="form-control" value="@(Model.DateOfBirth.HasValue ? Model.DateOfBirth.Value.ToString("yyyy-MM-dd") : string.Empty)" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Calculate Age</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <div class="alert alert-danger mt-3">@Model.Error</div>
+}
+else if (Model.DateOfBirth.HasValue && string.IsNullOrEmpty(Model.Error))
+{
+    <h5 class="mt-4">Result</h5>
+    <div>@Model.Years years, @Model.Months months, @Model.Weeks weeks, @Model.Days days, @Model.Hours hours, @Model.Minutes minutes, @Model.Seconds Seconds</div>
+    
+}

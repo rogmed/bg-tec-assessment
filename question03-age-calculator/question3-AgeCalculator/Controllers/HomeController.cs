@@ -8,12 +8,60 @@ namespace question3_AgeCalculator.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View(new AgeViewModel());
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Index(AgeViewModel model)
         {
-            return View();
+            if (model.DateOfBirth == null)
+            {
+                model.Error = "Please enter a date of birth.";
+                return View(model);
+            }
+
+            var dob = model.DateOfBirth.Value;
+            var now = DateTime.Now;
+
+            if (dob > now)
+            {
+                model.Error = "Date of birth cannot be in the future.";
+                return View(model);
+            }
+
+            // Calculate full years
+            int years = now.Year - dob.Year;
+            if (dob.AddYears(years) > now) years--;
+
+            // Calculate months
+            var start = dob.AddYears(years);
+            int months = 0;
+            while (start.AddMonths(months + 1) <= now)
+            {
+                months++;
+            }
+
+            // Remaining time after removing years and months
+            start = start.AddMonths(months);
+            var remainder = now - start;
+
+            int totalDays = (int)remainder.TotalDays;
+            int weeks = totalDays / 7;
+            int days = totalDays % 7;
+
+            int hours = remainder.Hours;
+            int minutes = remainder.Minutes;
+            int seconds = remainder.Seconds;
+
+            model.Years = years;
+            model.Months = months;
+            model.Weeks = weeks;
+            model.Days = days;
+            model.Hours = hours;
+            model.Minutes = minutes;
+            model.Seconds = seconds;
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
