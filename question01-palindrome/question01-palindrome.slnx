@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="PalindromeCheckerTest/PalindromeCheckerTest.csproj" />
+  <Project Path="PalindromeManager/PalindromeManager.csproj" />
+</Solution>
