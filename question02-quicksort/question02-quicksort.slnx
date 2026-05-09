@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="question02-quicksort/Quicksort.csproj" />
+  <Project Path="QuicksortTest/QuicksortTest.csproj" />
+</Solution>
