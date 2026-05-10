@@ -1,0 +1,20 @@
+# Azure Blob Storage API
+
+## How to run locally
+
+1. Run Azurite.exe as admin (Azure Storage Emulator, included with Azure SDK for .NET)
+2. Run question04-storage from Visual Studio or from Powershell with dotnetrun
+3. Endpoints:
+
+	- POST: [localhost]/api/files/upload
+		note: Content-type = multipart/form-data
+		Include file in body
+
+	- GET: [localhost]/api/files/{id}
+
+## Steps to use Azure Blob Storage
+
+1. Add Azure.Storage.Blobs NuGet
+2. Create a Vault Key in Azure with Azure
+3. Add the ConnectionString secret in Key Vault
+4. Add connection to KeyVault with example like commented lines in Program.cs
